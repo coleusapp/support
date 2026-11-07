@@ -9,23 +9,26 @@ use Tighten\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
-    /**
-     * The root template that's loaded on the first page visit.
-     *
-     * @see https://inertiajs.com/server-side-setup#root-template
-     *
-     * @var string
-     */
-    protected $rootView = 'app';
+    protected string $package;
+
+    public function rootView(Request $request): string
+    {
+        return "{$this->package}::app";
+    }
 
     /**
-     * Determines the current asset version.
-     *
-     * @see https://inertiajs.com/asset-versioning
+     * Every package is its own Vite bundle, so the version must differ between packages: Inertia then answers a
+     * visit into another package with a full page load instead of rendering that package's page in this bundle.
      */
     public function version(Request $request): ?string
     {
-        return parent::version($request);
+        $manifest = public_path("vendor/{$this->package}/manifest.json");
+
+        $build = is_file($manifest)
+            ? hash_file('xxh128', $manifest)
+            : '';
+
+        return hash('xxh128', "{$this->package}:{$build}");
     }
 
     /**
