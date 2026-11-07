@@ -7,6 +7,7 @@ import path from 'path';
 
 export default defineConfig({
     build: { outDir: 'resources/dist' },
+    envDir: path.resolve(__dirname, '../..'),
     plugins: [
         tailwindcss(),
         laravel({
