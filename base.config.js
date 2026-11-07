@@ -12,7 +12,7 @@ export default defineConfig({
         laravel({
             input: ['resources/js/app.ts'],
             refresh: true,
-            hotFile: path.resolve(__dirname, '../../public/hot'),
+            hotFile: path.resolve(__dirname, `../../public/${path.basename(process.cwd())}.hot`),
         }),
         vue({
             template: {
