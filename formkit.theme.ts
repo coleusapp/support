@@ -2525,6 +2525,13 @@ const classes: Record<string, Record<string, boolean>> = {
         'ml-auto': true,
         'shrink-0': true,
     },
+    switch__help: {
+        'text-gray-500': true,
+        'text-[11px]': true,
+        '[line-height:1em]': true,
+        'dark:text-gray-400': true,
+        'mt-2': true,
+    },
     toggle__outer: {
         group: true,
         'min-w-0': true,
